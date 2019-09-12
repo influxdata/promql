@@ -18,8 +18,7 @@ import (
 
 	"github.com/pkg/errors"
 
-	"github.com/prometheus/prometheus/pkg/labels"
-	"github.com/prometheus/prometheus/storage"
+	"github.com/influxdata/promql/v2/pkg/labels"
 )
 
 // Node is a generic interface for all nodes in an AST.
@@ -111,10 +110,6 @@ type MatrixSelector struct {
 	Range         time.Duration
 	Offset        time.Duration
 	LabelMatchers []*labels.Matcher
-
-	// The unexpanded seriesSet populated at query preparation time.
-	unexpandedSeriesSet storage.SeriesSet
-	series              []storage.Series
 }
 
 // SubqueryExpr represents a subquery.
@@ -153,10 +148,6 @@ type VectorSelector struct {
 	Name          string
 	Offset        time.Duration
 	LabelMatchers []*labels.Matcher
-
-	// The unexpanded seriesSet populated at query preparation time.
-	unexpandedSeriesSet storage.SeriesSet
-	series              []storage.Series
 }
 
 func (e *AggregateExpr) Type() ValueType  { return ValueTypeVector }

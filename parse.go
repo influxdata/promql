@@ -26,9 +26,9 @@ import (
 	"github.com/pkg/errors"
 	"github.com/prometheus/common/model"
 
-	"github.com/prometheus/prometheus/pkg/labels"
-	"github.com/prometheus/prometheus/pkg/value"
-	"github.com/prometheus/prometheus/util/strutil"
+	"github.com/influxdata/promql/v2/pkg/labels"
+	"github.com/influxdata/promql/v2/pkg/value"
+	"github.com/influxdata/promql/v2/util/strutil"
 )
 
 type parser struct {
@@ -1075,4 +1075,17 @@ func parseDuration(ds string) (time.Duration, error) {
 		return 0, errors.New("duration must be greater than 0")
 	}
 	return time.Duration(dur), nil
+}
+
+// documentedType returns the internal type to the equivalent
+// user facing terminology as defined in the documentation.
+func documentedType(t ValueType) string {
+	switch t {
+	case "vector":
+		return "instant vector"
+	case "matrix":
+		return "range vector"
+	default:
+		return string(t)
+	}
 }

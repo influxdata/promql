@@ -24,7 +24,7 @@ import (
 	"github.com/prometheus/common/model"
 	"github.com/stretchr/testify/require"
 
-	"github.com/prometheus/prometheus/pkg/labels"
+	"github.com/influxdata/promql/v2/pkg/labels"
 )
 
 var testExpr = []struct {

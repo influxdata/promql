@@ -22,9 +22,9 @@ import (
 
 	"github.com/pkg/errors"
 	"github.com/prometheus/common/model"
-	"github.com/stretchr/testify/require"
 
 	"github.com/influxdata/promql/v2/pkg/labels"
+	"github.com/influxdata/promql/v2/util/testutil"
 )
 
 var testExpr = []struct {
@@ -1763,8 +1763,8 @@ func TestParseSeries(t *testing.T) {
 			}
 		}
 
-		require.Equal(t, test.expectedMetric, metric)
-		require.Equal(t, test.expectedValues, vals)
+		testutil.Equals(t, test.expectedMetric, metric)
+		testutil.Equals(t, test.expectedValues, vals)
 
 		if !reflect.DeepEqual(vals, test.expectedValues) || !reflect.DeepEqual(metric, test.expectedMetric) {
 			t.Errorf("error in input: \n\n%s\n", test.input)
@@ -1789,6 +1789,7 @@ func TestRecoverParserRuntime(t *testing.T) {
 	defer p.recover(&err)
 	// Cause a runtime panic.
 	var a []int
+	//nolint:govet
 	a[123] = 1
 }
 
